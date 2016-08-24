@@ -26,6 +26,8 @@
 
   powerManagement.enable = true;
 
+  hardware.opengl.driSupport32Bit = true;
+
   # Select internationalisation properties.
   i18n = {
     consoleFont = "Lat2-Terminus16";
@@ -41,9 +43,16 @@
   environment.systemPackages = with pkgs; [
     chromium
     git
-    wget
+    steam
     vim
+    wget
   ];
+
+  fonts = {
+    fonts = with pkgs; [
+      source-code-pro
+    ];
+  };
 
   # List services that you want to enable:
 
