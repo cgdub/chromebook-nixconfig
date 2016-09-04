@@ -12,6 +12,11 @@
 
   nixpkgs.config = {
     allowUnfree = true;
+
+    google-chrome = {
+      gnomeSupport = true;
+      gnomeKeyringSupport = true;
+    };
   };
 
   # Use the GRUB 2 boot loader.
@@ -27,6 +32,7 @@
   powerManagement.enable = true;
 
   hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.enable = true;
 
   # Select internationalisation properties.
   i18n = {
@@ -41,8 +47,10 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    chromium
+    firefox
+    dmidecode
     git
+    google-chrome
     steam
     vim
     wget
@@ -68,9 +76,7 @@
   services.xserver.xkbOptions = "ctrl:swap_lwin_lctl";
 
   # Enable touchpad
-  services.xserver.synaptics.enable = true;
-  services.xserver.synaptics.accelFactor = "0.015";
-  services.xserver.synaptics.twoFingerScroll = true;
+  services.xserver.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
