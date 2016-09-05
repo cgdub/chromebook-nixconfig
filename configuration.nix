@@ -14,6 +14,7 @@
     allowUnfree = true;
 
     google-chrome = {
+      enablePepperFlash = true;
       gnomeSupport = true;
       gnomeKeyringSupport = true;
     };
@@ -44,16 +45,19 @@
   # Set your time zone.
   time.timeZone = "America/New_York";
 
+  programs.zsh.enable = true;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    firefox
     dmidecode
+    firefox
     git
-    google-chrome
+    google-chrome-dev
     steam
     vim
     wget
+    which
   ];
 
   fonts = {
@@ -82,6 +86,7 @@
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
+  services.xserver.displayManager.slim.defaultUser = "chris";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
@@ -89,6 +94,7 @@
     home = "/home/chris";
     description = "Chris W";
     extraGroups = [ "wheel" "networkmanager" ];
+    shell = "/run/current-system/sw/bin/zsh";
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
