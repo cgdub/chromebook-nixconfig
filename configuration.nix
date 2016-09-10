@@ -26,9 +26,11 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
-  networking.hostName = "delly"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "delly"; # Define your hostname.
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    networkmanager.enable = true;
+  };
 
   powerManagement.enable = true;
 
@@ -50,13 +52,16 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    dmidecode
+    dpkg
     firefox
+    gcc
     git
     google-chrome-dev
+    nwjs_0_12
     steam
     vim
     wget
+    wine
     which
   ];
 
@@ -85,8 +90,9 @@
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
-  services.xserver.displayManager.slim.defaultUser = "chris";
+  # services.xserver.displayManager.slim.defaultUser = "chris";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
