@@ -34,8 +34,14 @@
 
   powerManagement.enable = true;
 
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    bluetooth.enable = true;
+    opengl.driSupport32Bit = true;
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+    };
+  };
 
   # Select internationalisation properties.
   i18n = {
@@ -58,6 +64,8 @@
     git
     google-chrome-dev
     nwjs_0_12
+    rfkill
+    spotify
     steam
     vim
     wget
@@ -75,6 +83,8 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
+  services.tlp.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -98,7 +108,7 @@
   users.extraUsers.chris = {
     isNormalUser = true;
     home = "/home/chris";
-    description = "Chris W";
+    description = "Chris";
     extraGroups = [ "wheel" "networkmanager" ];
     shell = "/run/current-system/sw/bin/zsh";
   };
