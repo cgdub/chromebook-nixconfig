@@ -15,8 +15,8 @@
 
     google-chrome = {
       enablePepperFlash = true;
-      gnomeSupport = true;
-      gnomeKeyringSupport = true;
+      # gnomeSupport = true;
+      # gnomeKeyringSupport = true;
     };
   };
 
@@ -25,6 +25,9 @@
   boot.loader.grub.version = 2;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
+
+  # 4.7 kernel for backlit keyboard
+  boot.kernelPackages = pkgs.linuxPackages_4_7;
 
   networking = {
     hostName = "delly"; # Define your hostname.
@@ -59,14 +62,16 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     dpkg
-    firefox
     gcc
     git
     google-chrome-dev
     nwjs_0_12
+    openttd
+    pciutils
     rfkill
     spotify
     steam
+    terminator
     vim
     wget
     wine
@@ -84,25 +89,28 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  services.tlp.enable = true;
-
   # Enable CUPS to print documents.
   # services.printing.enable = true;
+
+  services.redshift.enable = true;
+  services.redshift.latitude = "41.0";
+  services.redshift.longitude = "-74.0";
+  services.redshift.temperature.night = 2300;
+
+  services.tlp.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "us";
+  services.xserver.xkbModel = "chromebook";
   services.xserver.xkbOptions = "ctrl:swap_lwin_lctl";
 
   # Enable touchpad
   services.xserver.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome3.enable = true;
-  # services.xserver.displayManager.slim.defaultUser = "chris";
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.kde5.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
