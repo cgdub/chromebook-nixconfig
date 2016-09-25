@@ -63,19 +63,23 @@
   environment.systemPackages = with pkgs; [
     dpkg
     gcc
+    gensgs
     git
     google-chrome-dev
+    kde4.yakuake
+    mupen64plus
     nwjs_0_12
     openttd
     pciutils
     rfkill
+    snes9x-gtk
     spotify
     steam
     terminator
     vim
     wget
-    wine
     which
+    wine
   ];
 
   fonts = {
