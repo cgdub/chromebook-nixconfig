@@ -15,8 +15,6 @@
 
     google-chrome = {
       enablePepperFlash = true;
-      # gnomeSupport = true;
-      # gnomeKeyringSupport = true;
     };
   };
 
@@ -33,6 +31,19 @@
     hostName = "delly"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     networkmanager.enable = true;
+    firewall = {
+      enable = true;
+      allowedTCPPortRanges = [
+        # KDE Connect
+        { from = 1714; to = 1764; }
+      ];
+      allowedUDPPortRanges = [
+        # Chromecast
+        { from = 32768; to = 61000; }
+        # KDE Connect
+        { from = 1714; to = 1764; }
+      ];
+    };
   };
 
   powerManagement.enable = true;
@@ -64,18 +75,19 @@
     dpkg
     gcc
     gensgs
+    geoclue2
     git
-    google-chrome-dev
-    kde4.yakuake
+    google-chrome
+    yakuake
+    kdeconnect
     mupen64plus
     nwjs_0_12
     openttd
     pciutils
     rfkill
     snes9x-gtk
-    spotify
+    # spotify
     steam
-    terminator
     vim
     wget
     which
@@ -107,7 +119,6 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.xkbModel = "chromebook";
-  services.xserver.xkbOptions = "ctrl:swap_lwin_lctl";
 
   # Enable touchpad
   services.xserver.libinput.enable = true;
@@ -116,12 +127,15 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.kde5.enable = true;
 
+  virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
     isNormalUser = true;
     home = "/home/chris";
     description = "Chris";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" ];
     shell = "/run/current-system/sw/bin/zsh";
   };
 
