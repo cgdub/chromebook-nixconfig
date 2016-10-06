@@ -27,10 +27,13 @@
   # 4.7 kernel for backlit keyboard
   boot.kernelPackages = pkgs.linuxPackages_4_7;
 
+  security.grsecurity.enable = true;
+
   networking = {
     hostName = "delly"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     networkmanager.enable = true;
+    extraHosts = "127.0.0.1 delly";
     firewall = {
       enable = true;
       allowedTCPPortRanges = [
@@ -72,6 +75,7 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    apacheKafka
     dpkg
     gcc
     gensgs
@@ -127,6 +131,8 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.kde5.enable = true;
 
+  services.zookeeper.enable = true;
+
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
 
@@ -141,4 +147,7 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.channel = https://nixos.org/channels/nixos-16.09;
 }
