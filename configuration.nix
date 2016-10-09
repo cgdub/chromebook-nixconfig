@@ -53,7 +53,9 @@
 
   hardware = {
     bluetooth.enable = true;
+    opengl.enable = true;
     opengl.driSupport32Bit = true;
+    opengl.extraPackages = [ pkgs.vaapiIntel ];
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
@@ -82,20 +84,22 @@
     geoclue2
     git
     google-chrome
-    yakuake
+    kde5.okular
     kdeconnect
     mupen64plus
     nwjs_0_12
     openttd
     pciutils
+    riak
     rfkill
     snes9x-gtk
-    # spotify
+    spotify
     steam
     vim
     wget
     which
     wine
+    yakuake
   ];
 
   fonts = {
@@ -112,12 +116,12 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  services.redshift.enable = true;
-  services.redshift.latitude = "41.0";
-  services.redshift.longitude = "-74.0";
-  services.redshift.temperature.night = 2300;
-
   services.tlp.enable = true;
+
+  # services.redshift.enable = true;
+  # services.redshift.latitude = "41.0";
+  # services.redshift.longitude = "-74.0";
+  # services.redshift.temperature.night = 2300;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -131,10 +135,19 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.kde5.enable = true;
 
-  services.zookeeper.enable = true;
+  # 7 databases in 7 weeks?
+  # 7 databases in 7 lines
+  services.postgresql.enable = true;
+  # services.riak.enable = true;
+  services.hbase.enable = true;
+  services.mongodb.enable = true;
+  services.couchdb.enable = true;
+  services.neo4j.enable = true;
+  services.redis.enable = true;
 
-  virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = true;
+  # services.zookeeper.enable = true;
+  # virtualisation.docker.enable = true;
+  # virtualisation.virtualbox.host.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
@@ -146,8 +159,5 @@
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.03";
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.channel = https://nixos.org/channels/nixos-16.09;
+  system.stateVersion = "16.09";
 }
