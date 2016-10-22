@@ -86,6 +86,7 @@
     google-chrome
     kde5.okular
     kdeconnect
+    lighttable
     mupen64plus
     nwjs_0_12
     openttd
@@ -146,7 +147,7 @@
   services.redis.enable = true;
 
   # services.zookeeper.enable = true;
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   # virtualisation.virtualbox.host.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
