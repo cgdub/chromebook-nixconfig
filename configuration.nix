@@ -16,6 +16,23 @@
     google-chrome = {
       enablePepperFlash = true;
     };
+
+    packageOverrides = pkgs: {
+      myEclipse = with pkgs.eclipses; eclipseWithPlugins {
+        eclipse = eclipse-platform;
+        jvmArgs = [ "-Xmx2048m" ];
+        plugins = [
+          plugins.bytecode-outline
+          plugins.checkstyle
+          plugins.eclemma
+          plugins.emacsplus
+          plugins.findbugs
+          plugins.jdt
+          plugins.scala
+          plugins.zest
+        ];
+      };
+    };
   };
 
   # Use the GRUB 2 boot loader.
@@ -24,10 +41,13 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
 
+  # boot.kernelModules = [ "snd-aloop" "snd-rawmidi" "snd-seq" ];
   # 4.7 kernel for backlit keyboard
-  boot.kernelPackages = pkgs.linuxPackages_4_7;
+  boot.kernelPackages = pkgs.linuxPackages_4_8;
 
-  security.grsecurity.enable = true;
+  # security.grsecurity.enable = true;
+  # get unity3d to work
+  security.chromiumSuidSandbox.enable = true;
 
   networking = {
     hostName = "delly"; # Define your hostname.
@@ -77,25 +97,33 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    apacheKafka
+    # apacheKafka
+    # bitwig-studio
     dpkg
-    gcc
     gensgs
     geoclue2
     git
+    # gnome3.pomodoro
     google-chrome
+    idea.idea-community
+    idea.pycharm-community
+    # jack2Full
     kde5.okular
     kdeconnect
     lighttable
     mupen64plus
-    nwjs_0_12
+    myEclipse
+    # nwjs_0_12
     openttd
+    # pavucontrol
     pciutils
-    riak
+    # qjackctl
     rfkill
     snes9x-gtk
+    sublime3
     spotify
     steam
+    unity3d
     vim
     wget
     which
@@ -135,20 +163,24 @@
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.kde5.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome3.enable = true;
 
   # 7 databases in 7 weeks?
   # 7 databases in 7 lines
   services.postgresql.enable = true;
-  # services.riak.enable = true;
   services.hbase.enable = true;
   services.mongodb.enable = true;
   services.couchdb.enable = true;
   services.neo4j.enable = true;
   services.redis.enable = true;
 
+  # services.riak.enable = true;
+  # services.riak.package = pkgs.riak;
+
   # services.zookeeper.enable = true;
   virtualisation.docker.enable = true;
-  # virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.chris = {
