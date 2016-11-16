@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  # fixed unstable channel builds
+  nix.useSandbox = true;
+
   nixpkgs.config = {
     allowUnfree = true;
 
@@ -109,7 +112,7 @@
     idea.pycharm-community
     # jack2Full
     kde5.okular
-    kdeconnect
+    # kdeconnect
     lighttable
     mupen64plus
     myEclipse
@@ -156,6 +159,9 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.xkbModel = "chromebook";
+  # NOTE: In KDE, disable 
+  # Settings -> Hardward -> Keyboard -> Advanced -> "Configure keyboard options"
+  services.xserver.xkbOptions = "ctrl:ralt_rctrl,ctrl:rctrl_ralt,ctrl:swap_lalt_lctl";
 
   # Enable touchpad
   services.xserver.libinput.enable = true;
@@ -168,12 +174,12 @@
 
   # 7 databases in 7 weeks?
   # 7 databases in 7 lines
-  services.postgresql.enable = true;
-  services.hbase.enable = true;
-  services.mongodb.enable = true;
-  services.couchdb.enable = true;
-  services.neo4j.enable = true;
-  services.redis.enable = true;
+  # services.postgresql.enable = true;
+  # services.hbase.enable = true;
+  # services.mongodb.enable = true;
+  # services.couchdb.enable = true;
+  # services.neo4j.enable = true;
+  # services.redis.enable = true;
 
   # services.riak.enable = true;
   # services.riak.package = pkgs.riak;
