@@ -20,6 +20,10 @@
       enablePepperFlash = true;
     };
 
+    firefox = {
+      enableAdobeFlash = true;
+    };
+
     packageOverrides = pkgs: {
       myEclipse = with pkgs.eclipses; eclipseWithPlugins {
         eclipse = eclipse-platform;
@@ -103,6 +107,7 @@
     # apacheKafka
     # bitwig-studio
     dpkg
+    firefox
     gensgs
     geoclue2
     git
@@ -121,6 +126,7 @@
     # pavucontrol
     pciutils
     # qjackctl
+    quassel
     rfkill
     snes9x-gtk
     sublime3
@@ -131,6 +137,7 @@
     wget
     which
     wine
+    xvfb_run
     yakuake
   ];
 
@@ -146,7 +153,7 @@
   # services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   services.tlp.enable = true;
 
