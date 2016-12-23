@@ -25,7 +25,7 @@
     };
 
     packageOverrides = pkgs: {
-      myEclipse = with pkgs.eclipses; eclipseWithPlugins {
+      _myEclipse = with pkgs.eclipses; eclipseWithPlugins {
         eclipse = eclipse-platform;
         jvmArgs = [ "-Xmx2048m" ];
         plugins = [
@@ -65,13 +65,17 @@
       enable = true;
       allowedTCPPortRanges = [
         # KDE Connect
-        { from = 1714; to = 1764; }
+        # { from = 1714; to = 1764; }
+        # Steam Link
+        { from = 27036; to = 27037; }
       ];
       allowedUDPPortRanges = [
         # Chromecast
         { from = 32768; to = 61000; }
         # KDE Connect
-        { from = 1714; to = 1764; }
+        # { from = 1714; to = 1764; }
+        # Steam Link
+        { from = 27031; to = 27036; }
       ];
     };
   };
@@ -104,24 +108,25 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    android-studio
     # apacheKafka
     # bitwig-studio
+    bluez-tools
     dpkg
     firefox
-    gensgs
-    geoclue2
+    fish
+    # geoclue2 # for kdeconnect
     git
     # gnome3.pomodoro
     google-chrome
-    idea.idea-community
+    # idea.idea-community
     idea.pycharm-community
     # jack2Full
     kde5.okular
+    kde5.bluez-qt
     # kdeconnect
     lighttable
-    mupen64plus
-    myEclipse
-    # nwjs_0_12
+    _myEclipse
     openttd
     # pavucontrol
     pciutils
@@ -129,16 +134,17 @@
     quassel
     rfkill
     snes9x-gtk
-    sublime3
+    # sublime3
     spotify
     steam
-    unity3d
+    traceroute
+    # unity3d
     vim
     wget
     which
-    wine
+    # wine
     xvfb_run
-    yakuake
+    # yakuake
   ];
 
   fonts = {
@@ -166,7 +172,7 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.xkbModel = "chromebook";
-  # NOTE: In KDE, disable 
+  # NOTE: In KDE, disable
   # Settings -> Hardward -> Keyboard -> Advanced -> "Configure keyboard options"
   services.xserver.xkbOptions = "ctrl:ralt_rctrl,ctrl:rctrl_ralt,ctrl:swap_lalt_lctl";
 
@@ -201,7 +207,6 @@
     home = "/home/chris";
     description = "Chris";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
-    shell = "/run/current-system/sw/bin/zsh";
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
