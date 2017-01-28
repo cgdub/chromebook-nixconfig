@@ -25,6 +25,13 @@
     };
 
     packageOverrides = pkgs: {
+      _hbase = with pkgs; hbase.overrideDerivation (oldAttrs: rec {
+        installPhase = ''
+          mkdir -p $out
+          cp -R * $out
+          wrapProgram $out/bin/hbase --set JAVA_HOME ${jre}
+        '';
+      });
       _myEclipse = with pkgs.eclipses; eclipseWithPlugins {
         eclipse = eclipse-platform;
         jvmArgs = [ "-Xmx2048m" ];
@@ -60,7 +67,7 @@
     hostName = "delly"; # Define your hostname.
     # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
     networkmanager.enable = true;
-    extraHosts = "127.0.0.1 delly";
+    # extraHosts = "127.0.0.1 delly";
     firewall = {
       enable = true;
       allowedTCPPortRanges = [
@@ -112,6 +119,7 @@
     # apacheKafka
     # bitwig-studio
     bluez-tools
+    # discord
     dpkg
     firefox
     fish
@@ -119,13 +127,14 @@
     git
     # gnome3.pomodoro
     google-chrome
-    # idea.idea-community
+    _hbase
+    idea.idea-community
     idea.pycharm-community
     # jack2Full
     kde5.okular
-    kde5.bluez-qt
     # kdeconnect
     lighttable
+    mupen64plus
     _myEclipse
     openttd
     # pavucontrol
@@ -188,16 +197,13 @@
   # 7 databases in 7 weeks?
   # 7 databases in 7 lines
   # services.postgresql.enable = true;
-  # services.hbase.enable = true;
+  services.hbase.enable = true;
+  # services.zookeeper.enable = true;
   # services.mongodb.enable = true;
   # services.couchdb.enable = true;
   # services.neo4j.enable = true;
   # services.redis.enable = true;
 
-  # services.riak.enable = true;
-  # services.riak.package = pkgs.riak;
-
-  # services.zookeeper.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
 
