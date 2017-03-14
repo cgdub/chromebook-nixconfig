@@ -30,22 +30,11 @@
           mkdir -p $out
           cp -R * $out
           wrapProgram $out/bin/hbase --set JAVA_HOME ${jre}
+          wrapProgram $out/bin/hbase-daemon.sh \
+            --set JAVA_HOME ${jre} \
+            --set HBASE_LOG_DIR = /var/log/hbase \
         '';
       });
-      _myEclipse = with pkgs.eclipses; eclipseWithPlugins {
-        eclipse = eclipse-platform;
-        jvmArgs = [ "-Xmx2048m" ];
-        plugins = [
-          plugins.bytecode-outline
-          plugins.checkstyle
-          plugins.eclemma
-          plugins.emacsplus
-          plugins.findbugs
-          plugins.jdt
-          plugins.scala
-          plugins.zest
-        ];
-      };
     };
   };
 
@@ -72,7 +61,7 @@
       enable = true;
       allowedTCPPortRanges = [
         # KDE Connect
-        # { from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
         # Steam Link
         { from = 27036; to = 27037; }
       ];
@@ -80,7 +69,7 @@
         # Chromecast
         { from = 32768; to = 61000; }
         # KDE Connect
-        # { from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
         # Steam Link
         { from = 27031; to = 27036; }
       ];
@@ -123,31 +112,31 @@
     dpkg
     firefox
     fish
-    # geoclue2 # for kdeconnect
+    geoclue2 # for kdeconnect
     git
     # gnome3.pomodoro
     google-chrome
-    _hbase
+    # _hbase
     idea.idea-community
     idea.pycharm-community
     # jack2Full
     kde5.okular
-    # kdeconnect
+    kdeconnect
     lighttable
     mupen64plus
-    _myEclipse
     openttd
     # pavucontrol
     pciutils
     # qjackctl
     quassel
+    redshift
     rfkill
     snes9x-gtk
     # sublime3
     spotify
     steam
     traceroute
-    # unity3d
+    unity3d
     vim
     wget
     which
@@ -172,10 +161,10 @@
 
   services.tlp.enable = true;
 
-  # services.redshift.enable = true;
-  # services.redshift.latitude = "41.0";
-  # services.redshift.longitude = "-74.0";
-  # services.redshift.temperature.night = 2300;
+  services.redshift.enable = true;
+  services.redshift.latitude = "41.0";
+  services.redshift.longitude = "-74.0";
+  services.redshift.temperature.night = 2800;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -197,7 +186,7 @@
   # 7 databases in 7 weeks?
   # 7 databases in 7 lines
   # services.postgresql.enable = true;
-  services.hbase.enable = true;
+  # services.hbase.enable = true;
   # services.zookeeper.enable = true;
   # services.mongodb.enable = true;
   # services.couchdb.enable = true;
