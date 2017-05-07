@@ -21,7 +21,7 @@
     };
 
     firefox = {
-      enableAdobeFlash = true;
+      # enableAdobeFlash = true;
     };
 
     packageOverrides = pkgs: {
@@ -46,7 +46,7 @@
 
   # boot.kernelModules = [ "snd-aloop" "snd-rawmidi" "snd-seq" ];
   # 4.7 kernel for backlit keyboard
-  boot.kernelPackages = pkgs.linuxPackages_4_8;
+  # boot.kernelPackages = pkgs.linuxPackages_4_8;
 
   # security.grsecurity.enable = true;
   # get unity3d to work
@@ -64,6 +64,8 @@
         { from = 1714; to = 1764; }
         # Steam Link
         { from = 27036; to = 27037; }
+        # Figwheel
+        { from = 3449; to = 3449; }
       ];
       allowedUDPPortRanges = [
         # Chromecast
@@ -104,7 +106,7 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    android-studio
+    # android-studio
     # apacheKafka
     # bitwig-studio
     bluez-tools
@@ -118,10 +120,10 @@
     google-chrome
     # _hbase
     idea.idea-community
-    idea.pycharm-community
+    # idea.pycharm-community
     # jack2Full
-    kde5.okular
-    kdeconnect
+    # kde5.okular
+    # kdeconnect
     lighttable
     mupen64plus
     openttd
@@ -136,7 +138,7 @@
     spotify
     steam
     traceroute
-    unity3d
+    # unity3d
     vim
     wget
     which
@@ -164,7 +166,7 @@
   services.redshift.enable = true;
   services.redshift.latitude = "41.0";
   services.redshift.longitude = "-74.0";
-  services.redshift.temperature.night = 2800;
+  services.redshift.temperature.night = 2000;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -178,10 +180,10 @@
   services.xserver.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.kde5.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome3.enable = true;
+  # services.xserver.displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome3.enable = true;
 
   # 7 databases in 7 weeks?
   # 7 databases in 7 lines
