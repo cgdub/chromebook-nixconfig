@@ -16,7 +16,7 @@
   nixpkgs.config = {
     allowUnfree = true;
 
-    google-chrome = {
+    chromium = {
       enablePepperFlash = true;
     };
 
@@ -47,6 +47,7 @@
   # boot.kernelModules = [ "snd-aloop" "snd-rawmidi" "snd-seq" ];
   # 4.7 kernel for backlit keyboard
   # boot.kernelPackages = pkgs.linuxPackages_4_8;
+  boot.kernelPackages = pkgs.linuxPackages_4_11;
 
   # security.grsecurity.enable = true;
   # get unity3d to work
@@ -114,10 +115,10 @@
     dpkg
     firefox
     fish
-    geoclue2 # for kdeconnect
+    # geoclue2 # for kdeconnect
     git
     # gnome3.pomodoro
-    google-chrome
+    chromium
     # _hbase
     idea.idea-community
     # idea.pycharm-community
@@ -133,12 +134,14 @@
     quassel
     redshift
     rfkill
+    slack
     snes9x-gtk
     # sublime3
     spotify
     steam
     traceroute
     # unity3d
+    # ut2004demo
     vim
     wget
     which
@@ -163,10 +166,10 @@
 
   services.tlp.enable = true;
 
-  services.redshift.enable = true;
-  services.redshift.latitude = "41.0";
-  services.redshift.longitude = "-74.0";
-  services.redshift.temperature.night = 2000;
+  # services.redshift.enable = false;
+  # services.redshift.latitude = "41.0";
+  # services.redshift.longitude = "-74.0";
+  # services.redshift.temperature.night = 2000;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
